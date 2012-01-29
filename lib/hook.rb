@@ -17,7 +17,19 @@ module Hook
         def around_#{method}(&block)
           around_hooks["#{method}"] << block
         end
+
+        def remove_#{method}_callbacks!
+          [before_hooks, after_hooks, around_hooks].each do |hooks|
+            hooks["#{method}"] = []
+          end
+        end
       HOOKS
+    end
+
+    def remove_callbacks!
+      @before_hooks = nil
+      @after_hooks = nil
+      @around_hooks = nil
     end
 
     def before_hooks

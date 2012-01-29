@@ -82,6 +82,28 @@ instance, here's what happens:
     after execute hooks run
     around execute hooks run
 
+### Resetting callbacks
+
+The hook library allows you to remove configured callbacks for either a
+specific hooked method, or for all hooked methods.
+
+#### Specific Hooked Method
+You can **remove all before, after, and around execute callbacks** on your class
+with the "remove\_execute\_callbacks!" method:
+
+```ruby
+Test.remove_execute_callbacks!
+```
+
+#### All Hooked Methods
+
+If you want to **remove all configured callbacks for all hooked methods** in
+one fail swoop, you can use the "remove_callbacks" method:
+
+```ruby
+Test.remove_callbacks!
+```
+
 
 ##LICENSE
 

@@ -45,3 +45,34 @@ a test executes:
     Test.new.execute
 
     around.should == "after"
+
+
+
+remove all before, after, and around execute callbacks
+------------------------------------------------------
+
+    Test.around_hooks["execute"].should_not be_empty
+    Test.before_hooks["execute"].should_not be_empty
+    Test.after_hooks["execute"].should_not be_empty
+
+    Test.remove_execute_callbacks!
+
+    Test.around_hooks["execute"].should be_empty
+    Test.before_hooks["execute"].should be_empty
+    Test.after_hooks["execute"].should be_empty
+
+
+remove all configured callbacks for all hooked methods
+------------------------------------------------------
+
+    Test.around_hooks["execute"].should_not be_empty
+    Test.before_hooks["execute"].should_not be_empty
+    Test.after_hooks["execute"].should_not be_empty
+
+    Test.remove_callbacks!
+
+    Test.around_hooks["execute"].should be_empty
+    Test.before_hooks["execute"].should be_empty
+    Test.after_hooks["execute"].should be_empty
+
+
