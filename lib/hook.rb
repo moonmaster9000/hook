@@ -47,6 +47,8 @@ module Hook
     yield
     run_hooks self.class.after_hooks[method]
     run_hooks self.class.around_hooks[method]
+
+    nil
   end
 
   def run_hooks(hooks)
