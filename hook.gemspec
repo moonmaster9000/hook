@@ -4,9 +4,11 @@ Gem::Specification.new do |s|
   s.version     = File.read "VERSION"
   s.email       = "moonmaster9000@gmail.com"
   s.homepage    = "http://github.com/moonmaster9000/hook"
-  s.description = "A system for creating view hooks."
-  s.summary     = "Add view hooks to your engines."
+  s.summary     = "A simple, lightweight system for adding lifecycle callbacks to your objects."
 
-  s.files = Dir["lib/**/*"] 
-  s.test_files = Dir["features/**/*"]
+  s.files = Dir["lib/**/*"] + ["readme.markdown"]
+  s.test_files = Dir["specdown/**/*"]
+  
+  s.add_development_dependency "specdown", "~> 0.4.0.beta.1"
+  s.add_development_dependency "rspec"
 end

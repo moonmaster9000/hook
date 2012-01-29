@@ -1,0 +1,47 @@
+Hook Details
+============================================
+
+
+anyone can hook into the lifecycle of a test
+--------------------------------------------
+
+You can create before hooks that execute before a test is executed:
+    
+    before = false
+
+    Test.before_execute do |test|
+      before = true
+    end
+
+    Test.new.execute
+
+    before.should be(true)
+
+You can create after hooks that execute after a test is execute:
+
+    after = false
+
+    Test.after_execute do |test|
+      after = true
+    end
+
+    Test.new.execute
+
+    after.should be(true)
+
+And lastly, you can create around hooks that execute before _and_ after
+a test executes:
+
+    around = nil
+
+    Test.around_execute do |test|
+      if around.nil?
+        around = "before"
+      else
+        around = "after"
+      end
+    end
+
+    Test.new.execute
+
+    around.should == "after"
