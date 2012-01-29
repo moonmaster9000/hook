@@ -76,11 +76,11 @@ of the `Test` object that `execute` was called on.
 Basically, whenever anyone calls the `execute` method on a test
 instance, here's what happens:
 
-    before hooks run
-    around hooks run
+    around execute hooks run
+    before execute hooks run
     execute method runs
-    around hooks run
-    after hooks run
+    after execute hooks run
+    around execute hooks run
 
 
 ##LICENSE
