@@ -9,6 +9,6 @@ Gem::Specification.new do |s|
   s.files = Dir["lib/**/*"] + ["readme.markdown"]
   s.test_files = Dir["specdown/**/*"]
   
-  s.add_development_dependency "specdown", "~> 0.4.0.beta.1"
+  s.add_development_dependency "specdown", "~> 0.4.0.beta.3"
   s.add_development_dependency "rspec"
 end

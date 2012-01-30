@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hook (0.0.1)
+    hook (0.0.2)
 
 GEM
   remote: http://rubygems.org/
@@ -16,8 +16,9 @@ GEM
     rspec-expectations (2.7.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.7.0)
-    specdown (0.4.0.beta.1)
+    specdown (0.4.0.beta.3)
       gitdown (~> 0.0.2)
+      hook (~> 0.0.2)
       term-ansicolor (~> 1.0.7)
     term-ansicolor (1.0.7)
 
@@ -27,4 +28,4 @@ PLATFORMS
 DEPENDENCIES
   hook!
   rspec
-  specdown (~> 0.4.0.beta.1)
+  specdown (~> 0.4.0.beta.3)
