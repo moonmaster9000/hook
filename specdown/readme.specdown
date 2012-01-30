@@ -5,6 +5,8 @@ Hook Details
 anyone can hook into the lifecycle of a test
 --------------------------------------------
 
+    raise "fail!"
+
 You can create before hooks that execute before a test is executed:
     
     before = false
