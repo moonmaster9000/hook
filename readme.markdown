@@ -1,5 +1,7 @@
 # Hook
 
+[![Build Status](https://secure.travis-ci.org/moonmaster9000/hook.png)](http://travis-ci.org/moonmaster9000/hook)
+
 A simple API for adding before, after, and around callbacks to methods.
 
 Think of it as `ActiveSupport::Callbacks`Lite.
