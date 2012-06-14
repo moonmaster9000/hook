@@ -19,40 +19,17 @@ Or add it to your Gemfile:
 ## Usage
 
 Imagine you've created a testing framework, and it includes a `Test`
-class with an `execute` method:
-
-```ruby
-class Test
-  #...
-  def execute
-    #...
-  end
-end
-```
+class with an `execute` method.
 
 You'll likely want to offer hooks into the execution lifecycle of your
-tests. First, include `Hook` into your class, then call `hook :execute`:
+tests. First, include `Hook` into your class, then decorate any methods you wish to hook with `+hook`:
 
 ```ruby
 class Test
-  include ::Hook
-  hook :execute
-end
-```
+  include Hook
 
-Next, you'll need to wrap the body of the `execute` method with a call
-to `with_hooks(:execute)`:
-
-```ruby
-class Test
-  include ::Hook
-  hook :execute
-
-  def execute
-    with_hooks :execute do
-      #...
-    end
-  end
+  +hook
+  def execute; end
 end
 ```
 

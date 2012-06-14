@@ -1,32 +1,56 @@
+require 'method_decorators'
+
 module Hook
   def self.included(base)
     base.extend ::Hook::ClassMethods
+    base.extend ::MethodDecorators
+  end
+
+  class HookDecorator < MethodDecorator
+    def call(wrapped, *args, &block)
+      method_name = wrapped.name.to_s
+      receiver = wrapped.receiver
+      owner = wrapped.owner
+
+      run_hooks owner.around_hooks[method_name], receiver
+      run_hooks owner.before_hooks[method_name], receiver
+      return_value = wrapped.call *args, &block
+      run_hooks owner.after_hooks[method_name], receiver
+      run_hooks owner.around_hooks[method_name], receiver
+
+      return_value
+    end
+
+    private
+    def run_hooks(hooks, object)
+      hooks.each {|hook| hook.call object}
+    end
   end
 
   module ClassMethods
-    def hook(method)
-      self.instance_eval <<-HOOKS
-        def before_#{method}(&block)
-          before_hooks["#{method}"] << block
-        end
-
-        def after_#{method}(&block)
-          after_hooks["#{method}"] << block
-        end
-
-        def around_#{method}(&block)
-          around_hooks["#{method}"] << block
-        end
-
-        def remove_#{method}_callbacks!
-          [before_hooks, after_hooks, around_hooks].each do |hooks|
-            hooks["#{method}"] = []
-          end
-        end
-      HOOKS
+    def hook
+      ::Hook::HookDecorator
     end
 
-    def remove_callbacks!
+    def hook_before method, &block 
+      before_hooks[method.to_s] << block
+    end
+
+    def hook_after method, &block 
+      after_hooks[method.to_s] << block
+    end
+
+    def hook_around method, &block 
+      around_hooks[method.to_s] << block
+    end
+
+    def remove_callbacks! method
+      [before_hooks, after_hooks, around_hooks].each do |hooks|
+        hooks[method.to_s] = []
+      end
+    end
+
+    def remove_all_callbacks!
       @before_hooks = nil
       @after_hooks = nil
       @around_hooks = nil
@@ -48,22 +72,5 @@ module Hook
     def scoped_callbacks
       Hash.new {|h,k| h[k] = []}
     end
-  end
-
-  private
-  def with_hooks(method)
-    method = method.to_s
-
-    run_hooks self.class.around_hooks[method]
-    run_hooks self.class.before_hooks[method]
-    yield
-    run_hooks self.class.after_hooks[method]
-    run_hooks self.class.around_hooks[method]
-
-    nil
-  end
-
-  def run_hooks(hooks)
-    hooks.each {|hook| hook.call self}
   end
 end
