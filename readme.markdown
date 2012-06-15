@@ -33,18 +33,18 @@ class Test
 end
 ```
 
-Now, **anyone can hook into the lifecycle of a test**:
+Now, anyone can hook into the lifecycle of a test:
 
 ```ruby
-Test.before_execute do |test|
+Test.hook_before(:execute) do |test|
   #...
 end
 
-Test.after_execute do |test|
+Test.hook_after(:execute) do |test|
   #...
 end
 
-Test.around_execute do |test|
+Test.hook_around(:execute) do |test|
   #...
 end 
 ```
@@ -67,20 +67,20 @@ The hook library allows you to remove configured callbacks for either a
 specific hooked method, or for all hooked methods.
 
 #### Specific Hooked Method
-You can **remove all before, after, and around execute callbacks** on your class
+You can remove all before, after, and around execute callbacks on your class
 with the "remove\_execute\_callbacks!" method:
 
 ```ruby
-Test.remove_execute_callbacks!
+Test.remove_callbacks! :execute
 ```
 
 #### All Hooked Methods
 
-If you want to **remove all configured callbacks for all hooked methods** in
+If you want to remove all configured callbacks for all hooked methods in
 one fail swoop, you can use the "remove_callbacks" method:
 
 ```ruby
-Test.remove_callbacks!
+Test.remove_all_callbacks!
 ```
 
 
