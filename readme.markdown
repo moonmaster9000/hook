@@ -1,6 +1,7 @@
 # Hook
 
 [![Build Status](https://secure.travis-ci.org/moonmaster9000/hook.png)](http://travis-ci.org/moonmaster9000/hook)
+[![Build Dependency Status](https://gemnasium.com/moonmaster9000/hook.png)](https://gemnasium.com/moonmaster9000/hook.png)
 
 A simple API for adding before, after, and around callbacks to methods.
 
