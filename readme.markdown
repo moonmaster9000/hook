@@ -29,7 +29,7 @@ class SomeObject
 end
 ```
 
-Now, anyone can hook into the lifecycle of a test:
+Now, anyone can hook into your method:
 
 ```ruby
 SomeObject.hook_before(:some_method) do |some_object|
