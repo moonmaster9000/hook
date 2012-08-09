@@ -18,48 +18,43 @@ Or add it to your Gemfile:
 
 ## Usage
 
-Imagine you've created a testing framework, and it includes a `Test`
-class with an `execute` method.
-
-You'll likely want to offer hooks into the execution lifecycle of your
-tests. First, include `Hook` into your class, then decorate any methods you wish to hook with `+hook`:
+Letting people hook around a method in your object is as simple as:
 
 ```ruby
-class Test
+class SomeObject
   include Hook
 
   +hook
-  def execute; end
+  def some_method; end
 end
 ```
 
 Now, anyone can hook into the lifecycle of a test:
 
 ```ruby
-Test.hook_before(:execute) do |test|
+SomeObject.hook_before(:some_method) do |some_object|
   #...
 end
 
-Test.hook_after(:execute) do |test|
+SomeObject.hook_after(:some_method) do |some_object|
   #...
 end
 
-Test.hook_around(:execute) do |test|
+SomeObject.hook_around(:some_method) do |some_object|
   #...
 end 
 ```
 
-Notice that our blocks accepted a `test` parameter. This is an instance
-of the `Test` object that `execute` was called on.
+`some_object` is the instance of `SomeObject` that `some_method` executed on.
 
-Basically, whenever anyone calls the `execute` method on a test
+Basically, whenever anyone calls the `some_method` method on a `SomeObject`
 instance, here's what happens:
 
-    around execute hooks run
-    before execute hooks run
-    execute method runs
-    after execute hooks run
-    around execute hooks run
+    around some_method hooks run
+    before some_method hooks run
+    some_method method runs
+    after some_method hooks run
+    around some_method hooks run
 
 ### Resetting callbacks
 
@@ -67,20 +62,20 @@ The hook library allows you to remove configured callbacks for either a
 specific hooked method, or for all hooked methods.
 
 #### Specific Hooked Method
-You can remove all before, after, and around execute callbacks on your class
-with the "remove\_execute\_callbacks!" method:
+You can remove all before, after, and around some_method callbacks on your class
+with the "remove\_callbacks!" method:
 
 ```ruby
-Test.remove_callbacks! :execute
+SomeObject.remove_callbacks! :some_method
 ```
 
 #### All Hooked Methods
 
 If you want to remove all configured callbacks for all hooked methods in
-one fail swoop, you can use the "remove_callbacks" method:
+one fail swoop, you can use the "remove_all_callbacks!" method:
 
 ```ruby
-Test.remove_all_callbacks!
+SomeObject.remove_all_callbacks!
 ```
 
 
